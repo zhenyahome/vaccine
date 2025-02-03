@@ -1,0 +1,161 @@
+* {
+    margin: 0px;
+}
+
+.calculator {
+    box-sizing: border-box;
+    display: block;
+    font-weight: 400;
+    font-size: 1em;
+}
+
+.calculator-block {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    min-height: 90px;
+    padding: 20px;
+    background: #edb629;
+    border-radius: 12px;
+}
+
+.calculator-block__content {
+    display: flex;
+    flex-wrap: nowrap;
+    z-index: 1;
+}
+
+.calculator-block input {
+    width: 140px;
+    height: 50px;
+    margin-right: 10px;
+    padding: 19px;
+    font-size: 20px;
+    line-height: 150%;
+    color: #301c3d;
+    background: #fff;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+}
+
+.button-show {
+    min-width: 146px;
+    height: 50px;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 150%;
+    text-align: center;
+    color: #fff;
+    background: #cdcdcd;
+    border-radius: 10px;
+    border: none;
+    cursor: default;
+    transition: background-color 0.2s;
+}
+
+/* .button-show.active {
+    background: #528beb;
+    cursor: pointer;
+} */
+
+.calculator-block p {
+    max-width: 380px;
+    margin-bottom: 0;
+    margin-left: 40px;
+    font-size: 20px;
+    line-height: 150%;
+    color: #fff;
+}
+
+.calendar {
+    box-sizing: border-box;
+    display: block;
+    font-weight: 400;
+    font-size: 1em;
+}
+
+.calendar-block {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    min-height: 90px;
+    padding: 20px;
+    background: #edb629;
+    border-radius: 12px;
+}
+
+.calendar-block__content {
+    display: flex;
+    flex-wrap: nowrap;
+    z-index: 1;
+}
+
+.button-KZ, .button-ext {
+    min-width: 146px;
+    height: 50px;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 150%;
+    text-align: center;
+    color: #301c3d;
+    border-radius: 10px;
+    border: none;
+    cursor: default;
+    transition: background-color 0.2s;
+}
+
+.button-KZ {
+    background: #fff;
+}
+
+.button-ext {
+    margin-left: 15px;
+    background: #fff;
+}
+
+.calendar-block p {
+    max-width: 380px;
+    margin-bottom: 0;
+    margin-left: 40px;
+    font-size: 20px;
+    line-height: 150%;
+    color: #fff;
+}
+
+.block-warning {
+    display: none;
+    color:brown;
+}
+
+.not-calendar-block {
+    display: none;
+    color:rgb(208, 119, 119);
+}
+
+.button-getRecom {
+    min-width: 146px;
+    height: 50px;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 150%;
+    text-align: center;
+    color: #fff;
+    background: #528beb;
+    border-radius: 10px;
+    border: none;
+    cursor: default;
+    transition: background-color 0.2s;
+}
+
+.date-input {
+    width: 100px;
+    height: 50px;
+    color: #301c3d;
+    background: #fff;
+    border-radius: 10px;
+}

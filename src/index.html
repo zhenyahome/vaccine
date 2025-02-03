@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <title>График вакцинации</title>
+    <meta name="description" content="индивидуальный график вакцинации для граждан рф и казахстана">
+</head>
+<body class="body-bg">
+    <div class="container mb-5">
+        <div class="row mt-4">
+            <h1 class="display-1">Индивидуальный график вакцинации</h1>
+            <div class="calculator">
+                <div class="calculator-block">
+                    <div class="calculator-block__content">
+                        <input
+                            type="text"
+                            inputmode="numeric"
+                            placeholder="15.02.2020"
+                            class="calculator-input"
+                        />
+                    </div>
+                    <p>Введите дату рождения</p>
+                </div>
+            </div>
+            <div class="calendar mt-3">
+                <div class="calendar-block">
+                    <div class="calendar-block_content">
+                        <button class="button-KZ">Национальный</button>
+                        <button class="button-ext">Расширенный</button>
+                    </div>
+                    <p>Выберете желаемый календарь</p>
+                </div>
+            </div>
+
+            <div class="block-warning mt-3">
+                <p class="p-warning" >Введите дату в формате ДД.ММ.ГГГГ</p>
+            </div>
+
+            <div class="not-calendar-block mt-3">
+                <p class="p-not-calendar" >Нужно выбрать один из календарей</p>
+            </div>
+
+            <div class="show mt-3">
+                <button class="button-show" disabled="true">Показать</button>
+            </div>
+
+            <div class="vaccine-block">
+                <div class="mark mt-2 d-none">
+                    <p>Отметьте те прививки, которые уже сделаны. Список разбит согласно национальному календарю, чтобы было проще ориентироваться</p>
+                </div>
+
+                <div class="birth align-items-center d-none">
+                    <hr class="flex-grow-1 border-primary">
+                    <span class="mx-2 text-muted fw-bold">В первые дни жизни</span>
+                    <hr class="flex-grow-1 border-primary">
+                  </div>
+            
+                <div class="m-4 bcj1 d-none">
+                    <input class="form-check-input" type="checkbox" value="БЦЖ" id="input-bcj1">
+                    <label class="form-check-label ms-3" for="input-bcj1">
+                        БЦЖ: живая вакцина от туберкулеза, первая доза ставится на 1-4 день жизни
+                    </label>
+                </div>
+            
+                <div class="ms-4 mb-3 vgv1 d-none">
+                    <input class="form-check-input" type="checkbox" value="ВГВ" id="input-vgv1">
+                    <label class="form-check-label ms-3" for="input-vgv1">
+                        ВГВ: инактивированная вакция против вирусного гепатита B, ставится на 2-4 день жизни
+                    </label>
+                </div>
+
+                <div class="month2 align-items-center d-none">
+                    <hr class="flex-grow-1 border-primary">
+                    <span class="mx-2 text-muted fw-bold">В 2 месяца</span>
+                    <hr class="flex-grow-1 border-primary">
+                </div>
+                
+                <div class="ms-4 mb-3 comb6-2 d-none">
+                    <input class="form-check-input" type="checkbox" value="АбКДС+ИПВ+Hib+ВГВ" id="input-6comb2">
+                    <label class="form-check-label ms-3" for="input-6comb2">
+                        АбКДС+ИПВ+Hib+ВГВ: 6-ти компонентная вакцина от дифтерии, кокшлюша, столбняка, гемофильной инфекции типа b, гепатита B и
+                        полиомиелита
+                    </label>
+                </div>
+
+                <div class="ms-4 mb-3 pnevmo2 d-none">
+                    <input class="form-check-input" type="checkbox" value="Пневмо" id="input-pnevmo2">
+                    <label class="form-check-label ms-3" for="input-pnevmo2">
+                        Пневмо: инактивированная вакцина против пневмококковой инфекции
+                    </label>
+                </div>
+               
+                <div class="month3 align-items-center d-none">
+                    <hr class="flex-grow-1 border-primary">
+                    <span class="mx-2 text-muted fw-bold">В 3 месяца</span>
+                    <hr class="flex-grow-1 border-primary">
+                </div>
+                    
+                <div class="ms-4 mb-3 comb5-3 d-none">
+                    <input class="form-check-input" type="checkbox" value="АбКДС+ИПВ+Hib" id="input-5comb3">
+                    <label class="form-check-label ms-3" for="input-5comb3">
+                        АбКДС+ИПВ+Hib: 5-ти компонентная вакцина от дифтерии, кокшлюша, столбняка, гемофильной инфекции типа b и полиомиелита
+                    </label>
+                </div>
+
+                <div class="month4 align-items-center d-none">
+                    <hr class="flex-grow-1 border-primary">
+                    <span class="mx-2 text-muted fw-bold">В 4 месяца</span>
+                    <hr class="flex-grow-1 border-primary">
+                </div>
+
+                <div class="ms-4 mb-3 comb6-4 d-none">
+                    <input class="form-check-input" type="checkbox" value="АбКДС+ИПВ+Hib+ВГВ - ревакцинация" id="input-6comb4">
+                    <label class="form-check-label ms-3" for="input-6comb4">
+                        АбКДС+ИПВ+Hib+ВГВ: 6-ти компонентная вакцина от дифтерии, кокшлюша, столбняка, гемофильной инфекции типа b, гепатита B и
+                        полиомиелита
+                    </label>
+                </div>
+
+                <div class="ms-4 mb-3 pnevmo4 d-none">
+                    <input class="form-check-input" type="checkbox" value="Пневмо - первая ревакцинация" id="input-pnevmo4">
+                    <label class="form-check-label ms-3" for="input-pnevmo4">
+                        Пневмо: инактивированная вакцина против пневмококковой инфекции, ревакцинация
+                    </label>
+                </div>
+
+                <div class="month12 align-items-center d-none">
+                    <hr class="flex-grow-1 border-primary">
+                    <span class="mx-2 text-muted fw-bold">В 12 месяцев</span>
+                    <hr class="flex-grow-1 border-primary">
+                </div>
+
+                <div class="ms-4 mb-3 kkp12 d-none">
+                    <input class="form-check-input" type="checkbox" value="ККП" id="input-kkp12">
+                    <label class="form-check-label ms-3" for="input-kkp12">
+                        ККП: живая вакцина от кори, краснухи и паротита
+                    </label>
+                </div>
+
+                <div class="ms-4 mb-3 pnevmo12 d-none">
+                    <input class="form-check-input" type="checkbox" value="Пневмо - вторая ревакцинация" id="input-pnevmo12">
+                    <label class="form-check-label ms-3" for="input-pnevmo12">
+                        Пневмо: инактивированная вакцина против пневмококковой инфекции, ревакцинация
+                    </label>
+                </div>
+
+                <div class="month18 align-items-center d-none">
+                    <hr class="flex-grow-1 border-primary">
+                    <span class="mx-2 text-muted fw-bold">В 18 месяцев</span>
+                    <hr class="flex-grow-1 border-primary">
+                </div>
+
+                <div class="ms-4 mb-3 comb5-18 d-none">
+                    <input class="form-check-input" type="checkbox" value="АбКДС+ИПВ+Hib - ревакцинация" id="input-5comb18">
+                    <label class="form-check-label ms-3" for="input-5comb18">
+                        АбКДС+ИПВ+Hib: 5-ти компонентная вакцина от дифтерии, кокшлюша, столбняка, гемофильной инфекции типа b и полиомиелита, ревакцинация
+                    </label>
+                </div>
+
+                <div class="years6 align-items-center d-none">
+                    <hr class="flex-grow-1 border-primary">
+                    <span class="mx-2 text-muted fw-bold">В 6-7 лет</span>
+                    <hr class="flex-grow-1 border-primary">
+                </div>
+
+                <div class="m-4 bcj6years d-none">
+                    <input class="form-check-input" type="checkbox" value="БЦЖ - ревакцинация" id="input-bcj6years">
+                    <label class="form-check-label ms-3" for="input-bcj6years">
+                        БЦЖ: живая вакцина от туберкулеза, ревакцинация в 6-7лет  
+                    </label>
+                </div>
+
+                <div class="ms-4 mb-3 kkp6years d-none">
+                    <input class="form-check-input" type="checkbox" value="ККП - ревакцинация" id="input-kkp6years">
+                    <label class="form-check-label ms-3" for="input-kkp6years">
+                        ККП: живая вакцина от кори, краснухи и паротита, ревакцинация в 6-7 лет
+                    </label>
+                </div>
+
+                <div class="ms-4 mb-3 abkds6years d-none">
+                    <input class="form-check-input" type="checkbox" value="АбКДС" id="input-abkds6years">
+                    <label class="form-check-label ms-3" for="input-abkds6years">
+                        АбКДС - вакцина от дифтерии, кокшлюша, столбняка, с уменьшенным содержанием дифтерийного анатоксина
+                    </label>
+                </div>
+
+                <div class="years16 align-items-center d-none">
+                    <hr class="flex-grow-1 border-primary">
+                    <span class="mx-2 text-muted fw-bold">В 16 лет</span>
+                    <hr class="flex-grow-1 border-primary">
+                </div>
+
+                <div class="ms-4 mb-3 adsm16years d-none">
+                    <input class="form-check-input" type="checkbox" value="АДС-М" id="input-adsm16years">
+                    <label class="form-check-label ms-3" for="input-adsm16years">
+                        АДС-М - вакцина от дифтерии и столбняка 
+                    </label>
+                </div>
+            </div>
+            <div class="getRecom mt-3 d-none">
+                <button class="button-getRecom">Получить рекомендации</button>
+            </div>
+            <div class="mt-3 d-none">
+                <h3 class="display-3 mt-3">Результат:</h3>
+                <div id="result"></div>
+            </div>
+
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="kz.js"></script>
+    <script src="script.js"></script>
+
+</body>
+</html>
