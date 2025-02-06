@@ -29,6 +29,7 @@ console.log(dateNow);
 
 birthInput.addEventListener('change', () => {
     const birthValue = birthInput.value;
+    console.log(birthValue);
     const dateOfBirth = new Date(birthValue);
     console.log(dateOfBirth);
     // Проверяем, подходит ли формат под дату (dd.mm.yyyy)
@@ -108,9 +109,9 @@ function fullCheck () {
 document.querySelector('.button-show').addEventListener('click', async () => {
     document.querySelector('.mark').classList.replace('d-none', 'd-block');
 
-    const day = birthInput.value.slice(0,2);
-    const month = birthInput.value.slice(3,5);
-    const year = birthInput.value.slice(6,10);
+    const day = birthInput.value.slice(8);
+    const month = birthInput.value.slice(5,7);
+    const year = birthInput.value.slice(0,4);
     const date1 = new Date(`${year}-${month}-${day}`);
 
     const date2 = new Date();
