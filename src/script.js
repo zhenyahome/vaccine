@@ -4,7 +4,7 @@ const API_TOKEN = '';
 
 
 let calendarClick = 'no';
-let dateCheck = 'no';
+let dateBirthCheck = 'no';
 
 const row = document.querySelector(".row"); //родительский контейнер
 
@@ -13,7 +13,7 @@ const buttonExt = document.querySelector(".button-ext");
 const notCalendarBlock = document.querySelector('.not-calendar-block');
 
 const buttonShow = document.querySelector('.button-show');
-const birthDateInput = document.querySelector('.calculator-input');
+const birthInput = document.querySelector('.calculator-input');
 
 const blockWarning = document.querySelector('.block-warning');
 const pWarning = document.querySelector('.p-warning');
@@ -21,42 +21,47 @@ const pWarning = document.querySelector('.p-warning');
 const getRecom = document.querySelector('.getRecom');
 const resultDiv = document.querySelector('#result');
 
-let birthDate;
+const dateNow = new Date();
+console.log(dateNow);
 
 //СБОР ДАННЫХ
 //проверка ввода даты рождения (ДОБАВИТЬ ПРОВЕРКУ ДНЕЙ И МЕСЯЦЕВ) и что один из календарей выбран
 
-birthDateInput.addEventListener('input', () => {
+birthInput.addEventListener('change', () => {
+    const birthValue = birthInput.value;
+    const dateOfBirth = new Date(birthValue);
+    console.log(dateOfBirth);
     // Проверяем, подходит ли формат под дату (dd.mm.yyyy)
-    const datePattern = /^\d{2}\.\d{2}\.\d{4}$/;
-    if (datePattern.test(birthDateInput.value)) { //если валидация даты - ок
-        //проверяем что дата не из будущего и возраст не более 100 лет
-        const dateInput = new Date(birthDateInput.value.split('.').reverse().join('-'));
-        const dateNow = new Date();
-        blockWarning.style.display = 'none'; //убираем предупреждение о неверной дате
-        console.log(dateNow - dateInput);
-        console.log(calendarClick);
-        //console.log(dateNow);
+    // const datePattern = /^\d{2}\.\d{2}\.\d{4}$/;
+    // if (datePattern.test(birthInput.value)) { //если валидация даты - ок
+    //     //проверяем что дата не из будущего и возраст не более 100 лет
+    //     blockWarning.style.display = 'none'; //убираем предупреждение о неверной дате
+    //     console.log(dateNow - dateOfBirth);
+    //     console.log(calendarClick);
+    //     //console.log(dateNow);
+    console.log((dateNow - dateOfBirth) < 3155760000000);
+    console.log(dateOfBirth <= dateNow);
+    console.log(((dateOfBirth <= dateNow) && ((dateNow - dateOfBirth) < 3155760000000)));
 
-        if ((dateInput <= dateNow) && ((dateNow - dateInput) < 3155760000000)) { //если все проверки по дате прошли
-            dateCheck = 'yes';
+
+        if ((dateOfBirth <= dateNow) && ((dateNow - dateOfBirth) < 3155760000000)) { //если все проверки по дате прошли
+            dateBirthCheck = 'yes';
             fullCheck();
             return;
-        } else if (dateInput > dateNow) {
+        } else if (dateOfBirth > dateNow) {
             blockWarning.style.display = 'block';
             pWarning.textContent = 'Год рождения не может быть больше текущего';
             return;
-        } else if ((dateNow - dateInput) > 3155760000000) {
+        } else if ((dateNow - dateOfBirth) > 3155760000000) {
             blockWarning.style.display = 'block';
             pWarning.textContent = 'Проверьте год рождения';
             return;
         }
-    } else {
-        blockWarning.style.display = 'block';
-        pWarning.textContent = 'Введите дату в формате ДД.ММ.ГГГГ';
-        //появляется предупреждение о неверном формате даты
-    }
-});
+    // } else {
+    //     blockWarning.style.display = 'block';
+    //     pWarning.textContent = 'Введите дату в формате ДД.ММ.ГГГГ';
+    //     //появляется предупреждение о неверном формате даты
+    });
 
 //проверка что один из календарей выбран
 //при нажатии одного из календарей второй окрашивается в серый
@@ -87,11 +92,10 @@ buttonExt.addEventListener('click', () => {
 //полная проверка перед тем как включить кнопку "Показать"
 
 function fullCheck () {
-    birthDate = birthDateInput.value;
-    if (calendarClick === 'yes' && dateCheck === 'yes') {
+    if (calendarClick === 'yes' && dateBirthCheck === 'yes') {
         buttonShow.disabled = false; // Разблокируем кнопку
         buttonShow.style.background = '#528beb'; //меняем цвет кнопки
-        console.log(birthDate);
+        console.log(birthInput.value);
     } else {
         buttonShow.disabled = true; // Отключаем кнопку
         buttonShow.style.background = '#cdcdcd'; 
@@ -104,10 +108,9 @@ function fullCheck () {
 document.querySelector('.button-show').addEventListener('click', async () => {
     document.querySelector('.mark').classList.replace('d-none', 'd-block');
 
-    const dateOfBirth = document.querySelector('.calculator-input').value;
-    const day = dateOfBirth.slice(0,2);
-    const month = dateOfBirth.slice(3,5);
-    const year = dateOfBirth.slice(6,10);
+    const day = birthInput.value.slice(0,2);
+    const month = birthInput.value.slice(3,5);
+    const year = birthInput.value.slice(6,10);
     const date1 = new Date(`${year}-${month}-${day}`);
 
     const date2 = new Date();
@@ -142,12 +145,12 @@ document.querySelector('.button-show').addEventListener('click', async () => {
         months = years * 12 + months;
     }
 
-    if (days >= 1) {
+    if (days >= 1 || months >= 1 || years >= 1) {
         document.querySelector('.birth').classList.replace('d-none', 'd-flex');
         document.querySelector('.bcj1').classList.replace('d-none', 'd-flex');
     }
 
-    if (days >= 2) {
+    if (days >= 2 || months >= 1 || years >= 1) {
         document.querySelector('.vgv1').classList.replace('d-none', 'd-flex');
     }
 
@@ -193,83 +196,85 @@ document.querySelector('.button-show').addEventListener('click', async () => {
 
     getRecom.classList.replace('d-none', 'd-block');
 
-    let vaccineDone = [];
+    let vaccineDone = []; // переделать на объект
+    //при отметке вакцины появляется инпут для ввода даты вакцинации
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
     checkboxes.forEach(checkbox => {
         checkbox.addEventListener('change', () => {
-            const parent = checkbox.closest('.bcj1'); // Найдем родительский элемент
+            const parent = checkbox.closest('.vac'); //родительский элемент
         
         if (checkbox.checked) {
-            const date = document.createElement('input');
-            date.type = 'date';
-            date.classList.add('date-input');
-            parent.append(date); // Добавляем инпут в родительский элемент
+            const checkboxDataset = parent.dataset.name;
+            console.log(checkboxDataset); 
+            const vaccineDateInput = document.createElement('input');
+            vaccineDateInput.type = 'date';
+            vaccineDateInput.classList.add('date-input');
+            parent.append(vaccineDateInput); 
+            let vaccineDateCheck = 'no';
+            const birthValue = birthInput.value;
+            const dateOfBirth = new Date(birthValue.split('.').reverse().join('-'));
+
+            vaccineDateInput.addEventListener('change', () => {
+                console.log(vaccineDateInput.value);
+                const dateOfVaccine = new Date(vaccineDateInput.value);
+                console.log(dateOfBirth);
+                console.log(dateOfVaccine);
+                console.log(dateOfVaccine >= dateOfBirth);
+                console.log(dateOfVaccine < dateNow);
+
+
+                if (dateOfVaccine <= dateOfBirth || dateOfVaccine > dateNow) { //проверка даты когда ставили прививку
+                    vaccineDateInput.classList.add("error"); 
+                } else {
+                    vaccineDateCheck = 'yes';
+                    vaccineDateInput.classList.remove("error"); 
+                }
+            })
+
+            vaccineDateInput.addEventListener('blur', () => {
+                if (vaccineDateCheck === 'yes') {
+                    //setRequest();
+                }
+            })
+
+
             // Если чекбокс отмечен, добавляем его value в массив
-            vaccineDone.push(checkbox.value);
         } else {
             // Если чекбокс снят, удаляем его value из массива
             vaccineDone = vaccineDone.filter(value => value !== checkbox.value);
-            const dateInput = parent.querySelector('.date-input');
-            if (dateInput) {
-                dateInput.remove(); // Убираем инпут, если чекбокс снят
+            const dateOfBirth = parent.querySelector('.date-input');
+            if (dateOfBirth) {
+                dateOfBirth.remove(); // Убираем инпут, если чекбокс снят
             }
         }
-            setRequest();
         })
     });
 
     function setRequest() {
-    console.log(birthDate);
+    console.log(birthInput.value);
     console.log(vaccineDone);
-    prompt = `Человек родился ${birthDate}. У него сделаны следующие прививки: ${vaccineDone.toString()}.
+    let prompt = `Человек родился ${birthInput.value}. У него сделаны следующие прививки: ${vaccineDone.toString()}.
     На основе казахстанского календаря вакцинации, какие вакцины он должен сделать? Составь подробную схему.`;
 
-    if (!buttonKZ.disabled) prompt =`Человек родился ${birthDate}. У него сделаны следующие прививки: ${vaccineDone.toString()}.
+    if (!buttonKZ.disabled) prompt =`Человек родился ${birthInput.value}. У него сделаны следующие прививки: ${vaccineDone.toString()}.
     // На основе казахстанского календаря вакцинации и, учитывая рекомендованные дополнительные прививки, какие вакцины он должен сделать? Составь подробную схему.`;
     console.log('Формируемый prompt:', prompt);
-    }
+
+    getRecom.addEventListener('click', function () {
+        console.log("Отправка запроса к ИИ...");
     
+        fetch('https://jsonplaceholder.typicode.com/posts/1') 
+            .then(response => response.json())
+            .then(data => {
+                console.log("Ответ ИИ:", data.body); 
+            })
+            .catch(error => {
+                console.error("Ошибка запроса:", error);
+            });
+    })
+};
 });
 
-let prompt;
 
-    getRecom.addEventListener('click', async () => {
-        const headers = {
-            Authorization: `Bearer ${API_TOKEN}`,
-            'Content-Type': 'application/json'
-        };
 
-        const body = {
-            inputs: prompt
-            // parameters: { max_length: 300, temperature: 0.7 }
-        };
 
-        console.log('Отправляемый запрос:', body);
-
-        try {
-            const response = await fetch(API_URL, {
-                method: 'POST',
-                headers: headers,
-                body: JSON.stringify(body),
-            });
-        
-            if (!response.ok) {
-                console.error(`Ошибка сервера: ${response.statusText} (${response.status})`);
-                resultDiv.textContent = `Ошибка API: ${response.statusText} (${response.status})`;
-                return;
-            }
-        
-            const data = await response.json();
-            console.log('Ответ API:', data);
-        
-            if (data?.[0]?.generated_text) {
-                resultDiv.textContent = data[0].generated_text;
-            } else {
-                console.warn('Данные пусты или отсутствуют в ожидаемом формате:', data);
-                resultDiv.textContent = 'Не удалось получить результат.';
-            }
-        } catch (error) {
-            console.error('Ошибка выполнения запроса:', error.message);
-            resultDiv.textContent = `Ошибка: ${error.message}`;
-        }
-    });
